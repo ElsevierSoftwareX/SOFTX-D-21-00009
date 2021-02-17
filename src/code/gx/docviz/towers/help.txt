@@ -1,0 +1,20 @@
+DOCUMENT TOWERS HELP
+
+To access the software documentation, open in a web browser the file index.html, found in the folder "help", created after the downloaded Document Towers application was unizipped.
+
+Here is a recapitulaition of the workflow.
+
+
+Workflow
+
+1. Supposing you work in InDesign on a document and you wish to visualize it, then select the menu File > Save As... > Format: InDesign CS4 or later (IDML), save the document to the IDML format, and copy the file to an empty folder.
+
+2. In the Document Towers menu select Geometry > Extract and select the directory containing the IDML file(s) you wish to visualize.
+
+3. Document Towers will generate in the same directory a file with the same name, but extension 'json', containing the document geometry.
+
+4. To visualize the extracted geometry push the Load Geometry button in the upper left corner of the application window, then the directory containing the extracted geometry files.
+
+5. Interact with the visualization through the graphical user interface by selecting which information is showed and manipulating the visualization in 3D.
+
+6. You can save the visualization in various formats from the menu, selecting Visualization > Save As... (SVG for high quality printing, PNG for web display, FIG for reuse in Matlab). (The files are saved in the same directory as the one from which they were read. If there is already a file with the same name, it will be overwritten (therefore modify their name as soon as saved, for example describing the point of view: "filename - top.png").)

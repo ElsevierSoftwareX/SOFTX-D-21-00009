@@ -1,0 +1,382 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- א -->
+	<title>Document Towers</title>
+	<meta http-equiv="Content-language" content="en">
+	<meta name="Author" content="Vlad Atanasiu">
+	<meta name="Keywords" content="document analysis, document visualization">
+	<meta name="Description" content="Help file to Document Towers software for document structure visualization">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+<div class="main">
+
+<h1>Document <span class="h1-underline">Towers</span></h1>
+
+<p>Vlad Atanasiu<br>
+atanasiu@alum.mit.edu<br>
+<a href="http://alum.mit.edu/www/atanasiu/">http://alum.mit.edu/www/atanasiu/</a><br>
+2021.01.06</p>
+
+
+<!-- GRAPHICAL ABSTRACT -->
+<img style="padding:40pt 0 20pt 0;" src="./images/abstract.png" height="200" width="500" alt="A stack of document pages. Next to it what looks like a city with high-rise tower on a regular street grid. It is the Document Towers visualization, which represents document structures using an architectural metaphor.">
+
+
+<!-- BLURB -->
+<p class="blurb-large">Document Towers is a software to visualize the three-dimensional geometry of paginated documents, that is the location and shape of the physical pages, text paragraphs, bitmap images, vector graphics, and, indeed, any information that can be spatially located.</p>
+
+<p class="blurb">Document Towers uses an architectural paradigm as cognitive model to represent document structures: objects-as-rooms, pages-as-floors, documents-as-towers, and libraries-as-cities.</p>
+
+<p class="blurb">The software obtains this information natively from Adobe InDesign IDML and ALTO files. A generic file format allows to import geometry data extracted by other software from further formats, such as PDF, Word, or even movie frames. The software is written in Matlab (R2018b).</p>
+
+
+<h2 id="Contents">Contents</h2>
+
+<p>
+<a href="#Highlights">Highlights</a></br>
+<a href="#Insights-example">Insights example</a></br>
+<a href="#Installation">Installation</a></br>
+<a href="#Demonstration-files">Demonstration files</a></br>
+<a href="#Workflow">Workflow</a></br>
+<a href="#Concept">Concept</a></br>
+<a href="#Interface">Interface</a></br>
+<a href="#Visualization">Visualization</a></br>
+<a href="#Functionalities">Functionalities</a></br>
+<a href="#Interaction">Interaction</a></br>
+<a href="#Menu">Menu</a></br>
+<a href="#Metrics">Metrics</a></br>
+<a href="#Data-format">Data format</a></br>
+<a href="#Multimodality">Multimodality</a></br>
+<a href="#Art">Art</a></br>
+</p>
+
+
+<h2 id="Highlights">Highlights</h2>
+
+<ul>
+<li>A generic paradigm for visualizing the structure of paginated documents</li>
+<li>Facilitates exploration and serendipitous insights in digital document libraries</li>
+<li>Allows document overview at a glance, without complex algorithmic analysis</li>
+<li>Represents documents as buildings and cities as a facilitating cognitive model</li>
+<li>Fit for document design, navigation, classification, and digitization quality control</li>
+</ul>
+
+
+<h2 id="Insights-example">Insights example</h2>
+
+<!--
+Modal Image (image enlarges to window size on top of the content.)
+Credits: https://www.w3schools.com/howto/howto_css_modal_images.asp
+-->
+
+<!-- Trigger the Modal -->
+<img id="imgCity" src="./images/city.png" alt="Document City" style="width:100%; max-width:500px; padding:40pt 0 20pt 0;">
+
+<!-- The Modal -->
+<div id="imgModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="imgModalCity">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="imgModalCityCaption"></div>
+</div> 
+
+
+<p>The above figure illustrates how document structures presented by the Document Towers yield insights of practical importance. What is seen as Document Towers are eighty-nine PDF documents in a directory ordered by filename. The blue slabs represent the location and extent of raster images in the digital documents.</p>
+
+<p><span class="bold">Misclassification:</span> While the collection was supposed to contain only articles, the presence of a high-rising Tower reveals a monograph among them. This misclassification would most likely have gone unnoticed if not for its serendipitous discovery due to visualization.</p>
+
+<p><span class="bold">Quality:</span> The regular Towers are scanned documents, where each page is a single raster image, while the fragmented Towers represent native electronic documents, in which images cover only a portion of pages (if present at all). For a library wishing to offer its readers searchable digital documents, the implication is that scanned documents must be identified and the text and logical structure extracted, which is time-consuming, costly, and yields imperfect search quality. Visualization offers a quick and lightweight solution to anticipate document quality.</p>
+
+<p><span class="bold">Forensics:</span> The small Tower in the upper left corner, which draws the eye due to its outlying location, is not an individual document, but rather represents images located outside the visible frame of the PDF documents. Could it conceal a hidden message?</p>
+
+
+
+<h2 id="Installation">Installation</h2>
+
+<!--
+<h3>Matlab app</h3>
+-->
+
+<ol>
+<li>In the Matlab window, click the APPS tab, then "Install App", and select the application file "Document_Towers_v[...].mlappinstall" from the "src" folder.</li>
+<li>Click the "Document Towers" icon in the apps bar to run the application.</li>
+<li>Read the documentation provided in the "docs/help" folder, by opening the file "index.html" in a web browser.</li>
+<li>Use the sample document files provided in the "docs/demo" folder to experiment with various document format and visualization option types.</li>
+</ol>
+
+<p><span class="italics">Note:</span> The folder "src/code" contains the same source code files as in the "mlapp" file. You can see this by changing the extension from "mlapp" to "zip" and unzipping the file.</p>
+
+<!--
+<h3>Source code</h3>
+
+<ul>
+<li>Download and unzip the source code.</li>
+<li>In the Matlab window add a path to the <span class="bold">towers</span> folder containing the code.</li>
+<li>Type <span class="bold">towers</span> at the Matlab command line to run the application.</li>
+</ul>
+
+<h3>Executable</h3>
+
+<ul>
+<li>Download and unzip the standalone application.</li>
+<li>Follow the instructions provided in the file <span class="bold">installation instructions.txt</span> found in the folder created after unzipping.</li>
+</ul>
+-->
+
+
+<h2 id="Demonstration-files">Demonstration files</h2>
+
+<p>A number of demonstration files are found in the 'demo' folder and are described in the <span class="bold">readme.txt</span> file of that folder.</p>
+
+
+<h2 id="Workflow">Workflow</h2>
+
+<ol>
+<li>Supposing you work in InDesign on a document and you wish to visualize it, then select the menu File > Save As... > Format: InDesign CS4 or later (IDML), save the document to the IDML format, and copy the file to an empty folder.</li>
+
+<li>In the Document Towers menu select Geometry > Extract and select the directory containing the IDML file(s) you wish to visualize.</li>
+
+<li>Document Towers will generate in the same directory a file with the same name, but extension 'json', containing the document geometry.</li>
+
+<li>To visualize the extracted geometry push the Load Geometry button in the upper left corner of the application window, then the directory containing the extracted geometry files.</li>
+
+<li>Interact with the visualization through the graphical user interface by selecting which information is showed and manipulating the visualization in 3D.</li>
+
+<li>You can save the visualization in various formats from the menu, selecting Visualization > Save As... (SVG for high quality printing, PNG for web display, FIG for reuse in Matlab). (The files are saved in the same directory as the one from which they were read. If there is already a file with the same name, it will be overwritten (therefore modify their name as soon as saved, for example describing the point of view: "filename - top.png").)</li>
+</ol>
+
+
+<h2 id="Concept">Concept</h2>
+
+<p>The visualization concept of the DOcument Towrs is to extrude the rectangular bounding boxed around document objects into thr-dimensional slabs, and stack the objects page by page into a "tower". The figure below illustrates this principle.</p>
+
+<img style="padding:40pt 0 20pt 0;" src="./images/concept.png" width="500" height="920" alt="A document page with some images, captions, text paragraphs, page numbers, and lines separating the objects. This is a perspective view. Each object is enclosed by a three-dimensional wireframe of the size of the objects' extent. The wireframes are color coded by object type.">
+
+
+<h2 id="Interface">Interface</h2>
+
+<p>The application interface consists of the visualization panel, the functionalities panel, the interaction toolbar, the menu, and gestural and keyboard interactions.</p>
+
+<img style="padding:40pt 0 20pt 0;" src="./images/interface.png" width="500" height="841" alt="Screenshoft of the user interface of the Document Towers software. To the right the text paragraphs of a book represented as a rectangles stacked to a building. To the left buttons to set software options, and rigger actions. On the top the menu, and the interaction toolbar.">
+
+
+<h2 id="Visualization">Visualization</h2>
+
+<p>The right-side of the application window is used to display the 3D representation of document structures. The top floor of the Towers represents the first page in a document. Enlarge the Document Towers window to full display size to gain a better view of details when displaying multiple documents.</p>
+
+<h2 id="Functionalities">Functionalities</h2>
+
+<p><span class="bold">Load Geometry:</span> Loads document geometry files in the Towers JSON format (see section <a href="#data-format">Data format</a> for specifications). You can select a folder and all the JSON files in it will be read. The data will be displayed in the Visualization panel. This button has the same function as the menu Geometry > Visualize.</p>
+
+<p><span class="bold">Ranges:</span> Specify whether to display all loaded documents and pages, or ranges thereof. Click the Apply button effect the change.</p>
+
+<p><span class="bold">Objects:</span> Specifies the objects to display as 3D wire frames: the document volume, page boundaries, text frames, bitmap images, vector graphics, and fonts.</p>
+
+<p>Click Select Fonts to specify the name, size, color, and transparency of fonts. If you wish to specify a single parameter of these classes, then you need to also select all the options of the the other classes.</p>
+
+<p>Some objects in the input files may be labeled – to select which, if any, of them to display, click the Select Labels button.</p>
+
+<p><span class="bold">Metrics Pages:</span> It is possible to perform some measurements on the document objects and to paint the 3D exterior of the objects with colors encoding the resulting values. The metrics can be understood as informing about the fragmentation of documents, and be conceived as characteristics of a statistical distribution.</p>
+
+<p>The <span class="bold">Cardinality</span> metric is informative about the density of objects on a page or spread, and is defined as the number of objects within the page or spread boundaries. The <span class="bold">Fill</span> metric informs about the page of spread area covered by objects, i.e. the statistical range of the object distribution.</p>
+
+<p>Page Boundaries must be checked for the metrics to become visible. Metrics are not available for font objects. Click Update Paint if you modified the objects to be displayed.</p>
+
+<p><span class="bold">Metadata:</span> <span class="bold">Page Tags</span> allows the display of textual tags of pages, if they are present in the input file, such as section titles. <span class="bold">Page Numbers</span> toggles page numbers next to the corner of the document visualization.</p>
+
+
+<h2 id="Interaction">Interaction</h2>
+
+<p>The toolbar below the menu, as well as a few keyboard shortcuts, allows the following interactions with the document visualization. Note that keyboard interaction is possible only if the zoom, rotate, and pan tools are disabled (black tool label on gray background).</p>
+
+<p><span class="bold">z</span> &emsp; zoom in and out of the visualization by clicking or dragging</br>
+<span class="bold">r</span> &emsp; rotate the visualization in 3D by dragging it</br>
+<span class="bold">p</span> &emsp; pan the visualization by dragging it</br>
+<span class="bold">o</span> &emsp; oblique view displays the document using a orthographic projection, with 40° azimuth and 25° elevation</br>
+<span class="bold">f</span> &emsp; front view of the document Tower</br>
+<span class="bold">s</span> &emsp; side view</br>
+<span class="bold">t</span> &emsp; top view</br>
+<span class="bold">h</span> &emsp; hide the functions panel (this option is useful when saving the figure)</br>
+<span class="bold">o</span> &emsp; open geometry file (same a the Load Geometry button)</br>
+<span class="code-bold">0</span> &emsp; show the coordinates axis</br>
+<span class="bold">double-click</span> &emsp; resets the visualization to its initial view parameters, when the toolbutton zoom, rotate, or pan ar active (white tool label on gray background)</p>
+
+
+<h2 id="Menu">Menu</h2>
+
+<p><span class="bold">Geometry &gt; Extract:</span> Selects InDesign <span class="bold">IDML</span> or <span class="bold">ALTO</span> files and extracts geometry information, which is saved to a JSON-formatted file readable by Document Towers. All IDML and ALTO files in the selected folder are processed. The output files are in the same folder as the input files. The same function is provided by the Load Geometry button on the functionalities panel.</p>
+
+<p><span class="bold">Geometry &gt; Visualize:</span> Loads document geometry files for visualization from a selected folder. These were either generated by Document Towers from InDesign IDML and ALTO files, or by third-party software in the format readable by Document Towers.</p>
+
+<p><span class="bold">Visualization &gt; Save As:</span> Save the visualization in one of the following formats &gt; PNG (fixed-size bitmap image format appropriate for line art and web display), SVG (scalable vector graphics format appropriate for web media), PDF and EPS (scalable vector graphics formats appropriate for print media), and FIG (Matlab format).</p>
+
+<p><span class="bold">Visualization &gt; Preferences:</span> <span class="bold">Text Transparency</span> sets the transparency of text objects (alpha channel), with values ranging from 0 (transparent) to 1 (opaque). <span class="bold">Floor Hight</span> sets the height of objects, expressed in pixels. <span class="bold">Document Spacing</span> sets the distance between documents, expressed in pixels, when multiple documents are displayed concomitantly.</p>
+
+<p><span class="bold">Metrics &gt; Statistics:</span> Provides counts of the different object types in the document.</p>
+
+<p><span class="bold">Metrics &gt; Preferences &gt; Metrics Values:</span> Specifies whether the metrics in the Metrics panel refer to a single page/spread/pasteboard (absolute value), or to the difference of such metrics for two consecutive pages/spreads/pasteboards (relative value).</p>
+
+<p><span class="bold">Metrics &gt; Preferences &gt; Metrics Boundary:</span> Specifies whether the metrics should be carried out on pages, spreads (one or more adjacent pages, such as a double page or a folded map in a book), or pasteboards (an area wider that the page and the spread, but not visible when documents are displayed in a document viewer, such as Acrobat).</p>
+
+<p><span class="bold">Metrics &gt; Preferences &gt; Metrics Cardinality:</span> Specifies if the colormap representing metrics is linear or logarithmic.</p>
+
+<p><span class="bold">Metrics &gt; Preferences &gt; Colormap Scheme:</span> Selects the color scheme used by the colormap.</p>
+
+<p><span class="bold">Metrics &gt; Preferences &gt; Colormap Range:</span> Specify whether the color with the lowest value corresponds to the lowest measured value of the selected metric (Min–Max option), or to zero (Zero–One option; in this case the highest value is scale to one).</p>
+
+
+<h2 id="Metrics">Metrics</h2>
+
+<p>The software provides the following statistics: the number of represented objects of a given label type, the number of objects per page (<span class="bold">cardinality</span>), and the area of a page covered by the objects (<span class="bold">fill</span>). Ongoing research aims at expanding the measurement of information in document structures, using descriptors such as the visual and typological <span class="bold">diversity</span> of objects, along with their <span class="bold">configuration</span> (e.g., symmetrical or asymmetrical layout). (The last two metrics are experimental, and not included in the software.)</p>
+
+<p>The measured values are colorcoded and represented on the exterior of Document Towers, as illustrated below.</p>
+
+<img style="padding:40pt 0 20pt 0;" src="./images/measures.png" height="940" width="500" alt="Four colored codebar-like stripes. They represent various mesurements made on th document pages, each represented by a color bar. Sample pages illustrative of each metric are shown below.">
+
+<p>The document analyzed here is the same as displayed above in the <a href="#interface">Interface</a> section. The measurement of cardinality shows that two pages of the book contain a large number of objects. Their inspection reveals that one of them is a table, which is an object type with, indeed, many parts. — The fill metric points to regular gaps the book, where a smaller page surface is covered by objects. These correspond to portions between sections, where there is less typographical material. — Diversity highlights the high variation of line length in the second part of the book, where the references are situated. — Configuration suggests that the layout is less homogeneous and more asymmetrical at specific locations within the book. Typically, these correspond to chapter starts.</p>
+
+
+<h2 id="Data-format">Data format</h2>
+
+<p>Below is a sample from a document geometry file used by Document Towers.</p>
+
+<pre>
+jsondata ({
+"geometry":
+[
+  "",
+  [
+    [0, 0, 0.0,0.0, 595.0,0.0, 595.0, 841.0,0.0, 841.0],
+    [1, 0, 36.0,35.0002, 545.9153,35.0002, 545.9153,117.0002, 36.0,117.0002],
+...
+    [3, 0, 36.0,67.5001, 497.292,67.5001, 497.292,67.5001, 36.0,67.5001],
+...
+    [4, 0, 36.0,35.0002, 61.39,35.0002, 61.39,45.0002, 36.0,45.0002, "MinionPro-It", 10.0, 0,0,0,1.0],
+    [4, 63.6596,35.0002, 540.8996,35.0002, 540.8996,45.0002, 63.6596,45.0002, "MinionPro-Regular", 10.0, 0,0,0,1.0],
+...
+    [4, 0, 268.1433,675.2199, 568.1433,675.2199, 568.1433,762.5199, 268.1433,762.5199, "JesusLovesYou", 300.0, 0,168,236,1.0]
+  ],
+  [
+    [0, 0, 0.0,0.0, 595.0,0.0, 595.0,841.0, 0.0,841.0],
+    [1, 0, 268.1433,675.2199, 568.1433,675.2199, 568.1433,762.5199, 268.1433,762.5199],
+    [4, 0, 268.1433,675.2199, 568.1433,675.2199, 568.1433,762.5199, 268.1433,762.5199, "JesusLovesYou", 300.0, 0,168,236,1.0]
+  ],
+  [
+    [0, 0, 0.0,0.0,441.0,0.0,441.0,666.0,0.0,666.0],
+    [1, 0, 375.0879,627.0, 383.4719,627.0, 383.4719,635.0, 375.0879,635.0],
+...
+    [2, 0, 57.2031,56.4652, 218.7609,56.4652, 218.7609,124.63719, 57.2031,124.63719],
+    [2, 0, 57.2031,134.2296, 218.7609,134.2296, 218.7609,202.4016, 57.2031,202.4016],
+...
+    [3, 0, 376.0709,603.5749, 383.4709,603.5749, 383.4709,607.28687, 376.0709,607.28687]
+  ]
+],
+"tags":
+[
+  ["Contents",[
+    ["Chapter 1",1],
+    ["Chapter 2",2]]],
+  ["Big Illustrations",[
+    ["Fig 1",1],
+    ["Fig 2",3]]]
+],
+"metadata":
+{
+  "filename":"sample fonts.pdf",
+  "url":"file:///sample fonts.pdf",
+  "volume":[595.0, 841.0, 3.0],
+  "counts":[3, 11, 4, 8, 46],
+  "objects":[
+    [0,"Pages"],
+    [1,"Text"],
+    [2,"Images"],
+    [3,"Graphics"],
+    [4,"Fonts"]],
+  "labels":[[0,"Unlabeled"]],
+  "legend":"object type; bounding box coordinates: n * (x, y); font name; font size; font fill color: rgba"
+}
+})
+</pre>
+
+<p>The arrays in the <span class="bold">geometry</span> JSON object represent pages, within which are regrouped individual objects of the document structure of given pages.</p>
+
+<p>The first value of an array is a scalar key that defines the type of the document object, as referenced in the <span class="bold">objects</span> array of the <span class="bold">metadata</span> JSON object.</p>
+
+<p>After the second value (a label key explained at the end of this section), the next eight integers are x–y <span class="bold">coordinate pairs</span> of the document object, in clockwise order, from the top-left corner of the document object.</p>
+
+<p>If the document object is a font, then it is possible to specify after the coordinates, as in the above example, the <span class="bold">font name</span> as a string, the <span class="bold">font size</span>, the <span class="bold">font color</span> in RGB format as positive integers from 0 to 255, and the <span class="bold">transparency</span> (valued from 0 to 1).</p>
+
+<p>The <span class="bold">tags</span> JSON object defines classes of tags attached with the respective tag strings and referenced pages to individual Document Towers page objects. These tags can be displayed along the document structure.</p>
+
+<p>In the <span class="bold">metadata</span> JSON object, the member <span class="bold">filename</span> contains the filename of the document from which the JSON geometry file was derived, while <span class="bold">url</span> provides the path to the file. If the file is a PDF, then a hyperlink is created between it and the visualization: clicking one of the page numbers next to the visualization the respective (logical) page of the PDF document will be displayed in a web browser.</p>
+
+<p><span class="bold">Volume</span> specifies the width, height, and number of pages of the displayed document. <span class="bold">Counts</span> specify the total number of objects in the document by the types and order of the <span class="bold">objects</span> entity. <span class="bold">Legend</span> is a short in-file explanation of the metadata fields.</p>
+
+<p>Document objects can be labeled and the display filtered according to selected labels. Label keys are positive integers inserted after the first value (the key to the object type) of a JSON array, and explicited in the <span class="bold">labels</span> entity of the <span class="bold">metadata</span> JSON object, as in the following example from an ALTO file:<p>
+
+<pre>
+jsondata ({
+"geometry":
+[
+  "",
+  [
+    [0, <span class="code-bold">0</span>, 0,0,2349.5,0,2349.5,3159.13,0,3159.13],
+    [1, <span class="code-bold">4</span>, 697,246,1701,246,1701,337,697,337],
+...
+    [2, <span class="code-bold">5</span>, 277,200,2126,200,2126,391,277,391],
+...
+  ]
+],
+"metadata":
+{
+...
+  "<span class="code-bold">labels</span>":[
+    [<span class="code-bold">0</span>,"Unlabeled"],
+    [1,"Advertisement"],
+    [2,"Author"],
+    [3,"Caption"],
+    [<span class="code-bold">4</span>,"Headline"],
+    [<span class="code-bold">5</span>,"Illustration"],
+    [6,"PageNumber"],
+    [7,"Publishing_Stmt"],
+    [8,"RunningTitle"],
+    [9,"Textblock"]],
+...
+}
+})
+</pre>
+
+
+
+<h2 id="Multimodality">Multimodality</h2>
+
+<p>On-screen display of Document Towers are only one modality to represent document structures. Analog instantiations let them be useful for a variety of applications, as illustrated in the following pictures.</p>
+
+<img style="padding:20pt 0 0pt 0;" src="./images/modalities_IMG_8705.jpg" height="375" width="500" alt="A Document Tower displayed on a computer screen, and one printed on a paper bookmark. A barcode-like measuremnt of the document layout regularity is pasted on a book spine, and laser engraved on a palm-sized wooden tablet.">
+
+<p>The <a href="https://www.amazon.com/Expert-Bytes-Expertise-Documents-Resources-dp-1466591900/dp/1466591900/" target="_new">book</a> in the picture was designed in InDesign and the structure of text frames is represented as Document Towers in interactive mode on screen and printed on paper, with the intention to function as a bookmark and a navigation aid similar to a table of contents.</p>
+
+<p>The possibilities opened by more compact versions of the Towers were investigated in an independent project form the Document Towers. The page layout irregularity was measured and represented as a barcode-like histogram. The beginnings of chapters are visibly standing out. The information is accessible as a sticker affixed on the book spine and laser-engraved on a wood tablet. The former allows an insight into the book without opening it, while the latter acts as a book navigation and browsing device for people with low vision.</p>
+
+
+
+<h2 id="Art">Art</h2>
+
+<p><span class="bold">Towers of Ishtar</span> is an example of an aesthetically appealing set of Document Towers. The colors encode measurements of the page layout regularity. The striated pattern is reminiscent of the glazed walls of <a href="https://en.wikipedia.org/wiki/Ishtar_Gate" target="_new">ancient Babylon</a>.</p>
+
+<img style="padding:40pt 0 20pt 0;" src="./images/art-ephe.png" height="1399" width="500" alt="">
+
+
+</div>
+ <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<!--
+		This code is an extension by Vlad Atanasiu (atanasiu@alum.mit.edu) of an example code distributed with the public release of three.js (https://threejs.org/examples/css3d_periodictable.html) under MIT License.
+		-->
+
+		<meta charset="utf-8">
+
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background-color: #f0f0f0;
+				margin: 0;
+				font-family: Helvetica, sans-serif;;
+				overflow: hidden;
+			}
+		</style>
+
+		<script src="./js/three.min.js"></script>
+		<script src="./js/TrackballControls.js"></script>
+		<script src="./js/THREEx.KeyboardState.js"></script>
+		<script src="./js/dat.gui.min.js"></script>
+
+	</head>
+	<body>
+
+	<div id="canvas"></div>
+
+	<script>
+
+	var docgeo; // document geometry data
+
+	var scene, camera, renderer, controls;
+	var keyboard = new THREEx.KeyboardState();
+
+	var WORLD_WIDTH = window.innerWidth;
+	var WORLD_HEIGHT = window.innerHeight;
+
+
+	function init() {
+
+		// WORLD
+
+		var ASPECT = WIDTH/HEIGHT;
+		var ANGLE = 45;
+		var NEAR = 1;
+		var FAR = 10000;
+
+		if ( window.WebGLRenderingContext )
+			renderer = new THREE.WebGLRenderer( { alpha: true, antialias: true } );
+		else {
+			renderer = new THREE.CanvasRenderer();
+			renderer.setClearColorHex( 0xf0f0f0 );
+			// BUG: apparently EdgesHelper won't work with CanvasRenderers
+		}
+		renderer.setSize( WORLD_WIDTH, WORLD_HEIGHT );
+		document.getElementById("canvas").appendChild( renderer.domElement );
+
+		scene = new THREE.Scene();
+
+		//var camera = new THREE.PerspectiveCamera( ANGLE, ASPECT, NEAR, FAR );
+		camera = new THREE.OrthographicCamera( WORLD_WIDTH / -2, WORLD_WIDTH / 2, WORLD_HEIGHT / 2, WORLD_HEIGHT / -2, NEAR, FAR );
+		camera.position.set( 500, 500, 500 );
+		camera.lookAt( scene.position );
+		scene.add( camera );
+
+		controls = new THREE.TrackballControls( camera, renderer.domElement );
+		controls.addEventListener( 'change', render );
+
+		scene.add( new THREE.AxisHelper(100) );
+
+		// OBJETCS
+
+		var LEAFS = 30; // number of pages
+		var WIDTH = 50
+		var HEIGHT = WORLD_HEIGHT * 0.9 / LEAFS; // distance between pages
+		var DEPTH = 100;
+		var BORDER = 0x666666;
+		var SKIN = {
+				'page':{'face':0x000000,'edge':0xff0000,'opacity':0.25},
+				'text':{'face':0x000000,'edge':0x666666,'opacity':0.25},
+				'graphic':{'face':0x000066,'edge':0x0000ff,'opacity':0.25},
+			};
+
+		//wires();
+		//leafs();
+		boxes();
+
+		function wires() {
+
+			var geometry = new THREE.PlaneGeometry( WIDTH, DEPTH );
+			var material = new THREE.MeshBasicMaterial( { wireframe: true, wireframeLinewidth: 2, color: 'black' } );
+
+			var object, mesh;
+			for ( var i = 0; i < LEAFS; i += 1 ) {
+				object = new THREE.Object3D();
+				object.position.set( 0, - HEIGHT * LEAFS / 2 + i * HEIGHT, 0 );
+				object.rotation.x = - Math.PI / 2;
+
+				mesh = new THREE.EdgesHelper( new THREE.Mesh( geometry, material ), 'black' );
+				object.add( mesh );
+				scene.add( object );
+			}
+		}
+
+		function leafs() {
+
+			var geometry = new THREE.PlaneGeometry( WIDTH, DEPTH );
+			var material = new THREE.MeshBasicMaterial( { color: 0x000000, opacity: 0.5, transparent: true } );
+			
+			var object, mesh;
+			for ( var i = 0; i < LEAFS; i += 1 ) {
+				object = new THREE.Object3D();
+				object.position.set( 0, - HEIGHT * LEAFS / 2 + i * HEIGHT, 0 );
+				object.rotation.x = - Math.PI / 2;
+
+				mesh = new THREE.Mesh( geometry, material );
+				object.add( mesh );
+				scene.add( object );
+			}
+		}
+		
+		function boxes() {
+
+			var material = [];
+			material.page = new THREE.MeshBasicMaterial( { color: SKIN.page.face, opacity: SKIN.page.opacity, transparent: true, side: THREE.DoubleSide } );
+			material.text = new THREE.MeshBasicMaterial( { color: SKIN.text.face, opacity: SKIN.text.opacity, transparent: true, side: THREE.DoubleSide } );
+			material.graphic = new THREE.MeshBasicMaterial( { color: SKIN.graphic.face, opacity: SKIN.graphic.opacity, transparent: true, side: THREE.DoubleSide } );
+			var wire = new THREE.MeshBasicMaterial( { wireframe: true, wireframeLinewidth: 2 } ); 
+
+			var object, mesh, solid, solidFront, solidBack;
+
+			var nspread = docgeo.frame.length;
+			var z = WORLD_HEIGHT * 0.9 / nspread; // distance between pages
+			z = 20;
+			var scale = 0.5;
+			for ( var kspread = 0; kspread < nspread; kspread += 1 ) {
+
+				var nframe = docgeo.frame[kspread].length;
+				for ( var kframe = 0; kframe < nframe; kframe += 1 ) {
+
+					var npoint = docgeo.frame[kspread][kframe].location.length;
+					// make a closed path
+					docgeo.frame[kspread][kframe].location[npoint] =
+						docgeo.frame[kspread][kframe].location[0];
+					docgeo.frame[kspread][kframe].location[npoint+1] =
+						docgeo.frame[kspread][kframe].location[1];
+					npoint += 2;
+
+					for ( var kpoint = 0; kpoint < npoint; kpoint += 2 ) {
+
+						var y1 = docgeo.frame[kspread][kframe].location[kpoint] * scale;
+						var x1 = docgeo.frame[kspread][kframe].location[kpoint+1] * scale;
+						var y2 = docgeo.frame[kspread][kframe].location[kpoint+2] * scale;
+						var x2 = docgeo.frame[kspread][kframe].location[kpoint+3] * scale;
+
+						w = Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) );
+						var geometry = new THREE.PlaneGeometry( w, z );
+
+						object = new THREE.Object3D();
+						object.position.set( 
+							( x1 + x2 ) / 2, 
+							- z * nspread / 2 + kspread * z, 
+							( y1 + y2 ) / 2 );
+						object.rotation.y = Math.atan( - ( y2 - y1 ) / ( x2 - x1 ) )
+
+						// varry color frame by type
+						switch (docgeo.frame[kspread][kframe].type) {
+							case 'TextFrame':
+								frameType = 'text';
+								solid = new THREE.Mesh( geometry, material[frameType] );
+								object.add( solid );
+								break;
+							case 'Page':
+								frameType = 'page';
+								break;
+							default:
+								frameType = 'graphic';
+								solid = new THREE.Mesh( geometry, material[frameType] );
+								object.add( solid );
+						}
+						mesh = new THREE.EdgesHelper( new THREE.Mesh( geometry, wire ), 
+							SKIN[frameType]['edge'] );
+						object.add( mesh );
+						scene.add( object );
+
+					}
+				}
+			}
+		}
+
+		// GUI
+
+		var gui = new dat.GUI();
+		var guiParameters = 
+		{
+			model: "Boxes",
+			default: function() { defaultView(); }
+		};
+		// gui.add(camera.position, 'x', -3000, 3000).listen();
+		var modelsList = [ "Wires", "Leafs", "Boxes" ];
+		var model = gui.add( guiParameters, 'model', modelsList ).name('Model').listen();
+		model.onChange( function( value ) { updateView(); } );
+		gui.add( guiParameters, 'default' ).name("Default");
+		gui.open();
+
+		function updateView() 
+		{
+			var value = guiParameters.model;
+			scene.clear();
+
+			if ( value == "Wires" )
+				wires();
+			else if ( value == "Leafs" )
+				leafs();
+			else
+				boxes();
+
+			scene.add( new THREE.AxisHelper(100) );
+			render();
+			//animate();
+		}
+
+		function defaultView()
+		{
+			guiParameters.model = "Boxes";
+			updateView();
+		}
+
+		// extend THREE with a method to clear all objects in a scene
+		THREE.Object3D.prototype.clear = function()
+		{
+			var children = this.children;
+			for(var i = children.length - 1; i >= 0; i--)
+			{
+				var child = children[i];
+				child.clear();
+				this.remove( child );
+			};
+		};
+	}
+
+	// var createControls = function() {
+
+	// var controls = new THREE.TrackballControls( camera );
+
+	// 	controls.minDistance = 500;
+	// 	controls.maxDistance = 6000;
+
+	// 	controls.rotateSpeed = 1.0;
+	// 	controls.zoomSpeed = 1.2;
+	// 	controls.panSpeed = 0.8;
+
+	// 	controls.noZoom = false;
+	// 	controls.noPan = false;
+
+	// 	controls.staticMoving = true;
+	// 	controls.dynamicDampingFactor = 0.3;
+
+	// 	controls.keys = [ 65, 83, 68 ];
+
+	// 	return controls;
+	// }
+
+	function onWindowResize() 
+	{
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		render();
+	}
+
+	function update()
+	{
+		if ( keyboard.pressed("z") ) 
+		{ 
+			// do something
+		}
+		
+		controls.update();
+	}
+
+	function animate() 
+	{
+		requestAnimationFrame( animate );
+		render();
+		update();
+	}
+
+	function render() 
+	{
+		renderer.render( scene, camera );
+	}
+
+
+	// -------------------
+	// READ GEOMETRY DATA FROM FILE
+	// -------------------
+
+	// EXTRACT VECTOR DATA URL FROM WINDOW URL OR JS FEED
+	function getGeodataURL(feed) {
+
+		if (!feed) { 
+			var feed = window.location.search;
+			var d = '';
+			var a1 = feed.indexOf('?url=');
+			var a2 = feed.indexOf('&url=');
+			if (a1 != -1) { 
+				d = '?'; 
+				var a = a1; 
+			} else if (a2 != -1) { 
+				d = '&'; 
+				var a = a2; 
+			} else {
+				var geodataURL = './data/default.json';
+			}
+			if (d != '') {
+				var s = feed.substring(a+5,feed.length);
+				if (s.indexOf('&')!=-1) { s = s.substring(0,s.indexOf('&')); }
+				var geodataURL = s; // URL of geometry data
+			}
+		}
+
+		loadToDom( geodataURL, 'jsondata' )
+	}
+
+	// LOAD DATA FROM FILE INTO JS OBJECT
+	function jsondata( feed ) {
+		
+		docgeo = feed;
+
+		// remove script tag after creating the json object
+		document.getElementsByTagName('head').item(0).removeChild(document.getElementById('jsondata'));
+
+		init();
+		animate(); // dynamic display <-- select this
+		render(); // static display <-- or this
+		// var controls = createControls();
+	}
+
+	// LOAD FILE TO DOM
+	function loadToDom( url, id ) {
+
+		var head = document.getElementsByTagName('head').item(0);
+		var script = document.createElement( 'script' );
+		script.setAttribute( 'id',id );
+		script.setAttribute( 'src',url );
+		script.setAttribute( 'type','text/javascript' );
+		head.appendChild( script );
+	}
+
+	window.onload = getGeodataURL();
+
+	</script>
+	</body>
+</html>

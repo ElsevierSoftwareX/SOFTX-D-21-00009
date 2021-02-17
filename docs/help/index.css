@@ -1,0 +1,315 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	/* \*/
+	height: 100%;
+	/* Last height declaration hidden from Mac IE 5.x */
+}
+
+body { 
+	background: #FFF url(./images/arxi_03.png);
+	background-attachment: fixed;
+	font-family: 'Fira Sans Regular', Arial, sans-serif; 
+	text-align: left;
+	color: #000;
+}
+
+.main, .main-large {
+	margin-top: 50px;
+	padding: 20 25 35 25px;
+	border-top: 0px solid #5520B0; /* violet 5520B0, orange ff6005 */
+	background-color: #FFF;
+}
+
+.main {
+	width: 500px;
+}
+
+.main-medium {
+	width: 681px;
+	padding: 20 25 35 25px;
+	background-color: #FFF;
+}
+
+.main-large {
+	width: 1024px;
+}
+
+@font-face {
+	font-family: 'Merriweather Black';
+	src: url('./fonts/merriweather-black.eot');
+	src: url('./fonts/merriweather-black.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/merriweather-black.woff') format('woff'),
+		url('./fonts/merriweather-black.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Fira Sans Regular';
+	src: url('./fonts/firasans-regular.eot');
+	src: url('./fonts/firasans-regular.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/firasans-regular.woff') format('woff'),
+		url('./fonts/firasans-regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Fira Sans SemiBold';
+	src: url('./fonts/firasans-semibold.eot');
+	src: url('./fonts/firasans-semibold.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/firasans-semibold.woff') format('woff'),
+		url('./fonts/firasans-semibold.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Fira Code';
+	src: url('./fonts/firacode-regular.eot');
+	src: url('./fonts/firacode-regular.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/firacode-regular.woff') format('woff'),
+		url('./fonts/firacode-regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Fira Code Bold';
+	src: url('./fonts/firacode-bold.eot');
+	src: url('./fonts/firacode-bold.eot?#iefix') format('embedded-opentype'),
+		url('./fonts/firacode-bold.woff') format('woff'),
+		url('./fonts/firacode-bold.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+body, h1, h2, h3, p, li, td {
+	-moz-font-feature-settings: "kern" 1; 
+	-ms-font-feature-settings: "kern" 1; 
+	-o-font-feature-settings: "kern" 1; 
+	-webkit-font-feature-settings: "kern" 1; 
+	font-feature-settings: "kern" 1;
+	font-kerning: normal;
+}
+
+a:link { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 2px dotted #888888;
+}
+
+a:visited { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 2px dotted #888888;
+}
+
+a:hover { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 2px dotted #662299;
+}
+
+a:active { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 2px dotted #662299;
+}
+
+a:focus { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 2px dotted #662299;
+}
+
+.image-link > a { 
+	color: #000;
+	text-decoration: none;
+	border-bottom: 0px dotted #888888;
+}
+
+
+h1 {
+	font-family: 'Merriweather Black', serif;
+	font-size: 48pt;
+	line-height: 50pt;
+	text-transform: uppercase;
+	color: #000;
+	text-align: left;
+	margin: 72pt 0 36pt 0pt;
+	padding: 6pt 0 6pt 0;
+	border-width: 0px 0px 0px 0px;
+	border-color: rgba(255, 193, 0, 1);
+	border-style: solid;
+}
+
+.h1-underline {
+	border-width: 0px 0px 10px 0px;
+	border-color: rgba(255, 193, 0, 1);
+	border-style: solid;
+}
+
+h2 {
+	font-family: 'Merriweather Black', serif;
+	font-size: 18pt;
+	line-height: 24pt;
+	color: rgba(98, 20, 175, 1);
+	text-align: left;
+	border-top: #AAA solid 1px;
+	padding-top: 35px;
+}
+
+h3 {
+	font-family: 'Merriweather Black', serif;
+	font-size: 12pt;
+	letter-spacing: 1pt;
+	color: rgba(98, 20, 175, 1);
+	text-align: left;
+	margin: 24pt 0 20pt 48pt;
+	border: 0;
+	padding: 0;
+}
+
+p, li {
+	font-family: 'Fira Sans Regular', sans-serif;
+	font-size: 12pt;
+	line-height: 20pt;
+	text-align: left;
+	color: #000;
+}
+
+ul {
+	list-style-type: disc;
+	margin: 0;
+	padding: 1em;
+}
+
+ol {
+	margin: 0;
+	padding: 1em;
+}
+
+.blurb {
+	font-family: 'Fira Sans SemiBold', monospace;
+}
+
+.blurb-large {
+	font-family: 'Fira Sans SemiBold', monospace;
+	font-size: 15pt;
+	line-height: 22pt;
+}
+
+.bold {
+	font-family: 'Fira Sans SemiBold', sans-serif;
+}
+
+pre {
+	overflow: auto;
+	scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+	padding: 12px;
+	background-color: #F0F0F0;
+	font-family: 'Fira Code', monospace;
+	font-size: 10pt;
+}
+
+.code-bold {
+	font-family: 'Fira Code Bold', monospace;
+}
+
+
+
+/*
+Modal Image (image enlarges to window size on top of the content.)
+Credits: https://www.w3schools.com/howto/howto_css_modal_images.asp
+*/
+
+/* Style the Image Used to Trigger the Modal */
+#imgCity {
+  border-radius: 0px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#imgCity:hover {
+	opacity: 0.7;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 95%;
+  max-width: 1024px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#imgModalCityCaption {
+  margin: auto;
+  display: block;
+  width: 95%;
+  max-width: 1024px;
+  text-align: center;
+  color: #FFF;
+  padding: 10px 0;
+/*  height: 150px; */
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
